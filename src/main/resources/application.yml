@@ -1,3 +1,4 @@
 custom:
   jwt:
-    secretKey: secretKey1234
+    ## secretKey? ???? ???.
+    secretKey: secretKey123412341234secretKey123412341234secretKey123412341234
