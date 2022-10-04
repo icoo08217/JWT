@@ -42,7 +42,8 @@ class JwtTests {
 	@Test
 	@DisplayName("JwtProvider 객체로 시크릿키 객체를 생성할 수 있다.")
 	void Test3() {
-		SecretKey secretKey = jwtProvider.getSecretKey();
+//		SecretKey secretKey = jwtProvider.getSecretKey();
+		SecretKey secretKey = TestUtil.callMethod(jwtProvider , "getSecretKey");
 		System.out.println(secretKey.getClass());
 
 		assertThat(secretKey).isNotNull();
@@ -57,8 +58,10 @@ class JwtTests {
 
 		// key가 한번만 만들어졌으면 좋겠다.
 		// getSecretKey 를 호출할 때마다 객체를 생성한다.
-		SecretKey secretKey1 = jwtProvider.getSecretKey();
-		SecretKey secretKey2 = jwtProvider.getSecretKey();
+//		SecretKey secretKey1 = jwtProvider.getSecretKey();
+		SecretKey secretKey1 = TestUtil.callMethod(jwtProvider , "getSecretKey");
+//		SecretKey secretKey2 = jwtProvider.getSecretKey();
+		SecretKey secretKey2 = TestUtil.callMethod(jwtProvider , "getSecretKey");
 
 		System.out.println(secretKey1);
 		System.out.println(secretKey2);

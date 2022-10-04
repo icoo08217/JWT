@@ -14,7 +14,7 @@ public class JwtConfig {
     @Value("${custom.jwt.secretKey}")
     private String secretKeyPlain;
 
-    @Bean
+    @Bean // 빈이 등록이 된것이다. 한번만 작동된다. @Configuration + @Bean = > 싱글톤이 기본적으로 제공된다.
     public SecretKey jwtSecretKey(){
         String keyBase64Encoded = Base64.getEncoder().encodeToString(secretKeyPlain.getBytes());
         return Keys.hmacShaKeyFor(keyBase64Encoded.getBytes());
