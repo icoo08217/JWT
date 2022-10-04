@@ -7,9 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.crypto.SecretKey;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -67,5 +71,28 @@ class JwtTests {
 		System.out.println(secretKey2);
 
 		assertThat(secretKey1 == secretKey2).isTrue();
+	}
+
+	@Test
+	@DisplayName("accessToken을 얻는다.")
+	void Test5() {
+		// 회원번호가 1이고
+		// username이 admin이고
+		// ADMIN 역할과 MEMBER 역할을 동시에 가지고 있는 회원 정보를 구성
+		Map<String, Object> claims = new HashMap<>();
+		claims.put("id", 1L);
+		claims.put("username", "admin");
+		claims.put("authrities" , Arrays.asList(
+				new SimpleGrantedAuthority("ADMIN"),
+				new SimpleGrantedAuthority("MEMBER")
+		));
+		// 구성 끝
+
+		String accessToken = jwtProvider.generateAccessToken(claims, 60 * 60 * 5);
+
+		System.out.println("accessToken : " + accessToken);
+
+		assertThat(accessToken).isNotNull();
+
 	}
 }
